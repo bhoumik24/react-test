@@ -44,6 +44,10 @@ class App extends Component {
         return p.id === id;
       });
 
+      /*const person = {...this.state.persons.find(p => {
+        return p.id === id;
+        })};*/
+
       const person = {...this.state.persons[personIndex]};
 
       person.name = event.target.value;
@@ -57,7 +61,8 @@ class App extends Component {
   render() {
 
       const buttonStyle = {
-          backgroundColor: 'white',
+          backgroundColor: 'green',
+          color: 'white',
           font: 'inherit',
           border: '1x solid blue',
           padding: '8px',
@@ -76,18 +81,29 @@ class App extends Component {
                 key={person.id} changed={(event) => this.nameChangedHandler(event, person.id)}/>
             })}
           </div>
-        )
+        );
+
+        buttonStyle.backgroundColor = 'red';
+      }
+
+      const classes = [];
+      if (this.state.persons.length <= 2) {
+        classes.push('red');
+      }
+      if (this.state.persons.length <= 1) {
+        classes.push('bold');
       }
 
     return (
           <div className="App">
               <h1>Hi, I'm a React App</h1>
-              <p>This really works!</p>
+              <p className={classes.join(' ')}>This really works!</p>
               <button
                   style={buttonStyle}
                   onClick={this.togglePersonsHandler}>Toggle Persons</button>
             {persons}
           </div>
+
       );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
